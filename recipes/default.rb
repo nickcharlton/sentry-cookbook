@@ -74,7 +74,7 @@ template '/etc/sentry/sentry.conf.py' do
   variables(
     'database' => node['sentry']['database'],
     'email' => node['sentry']['email'],
-    'secret_key' => ndoe['sentry']['secret_key']
+    'secret_key' => node['sentry']['secret_key']
   )
 end
 
