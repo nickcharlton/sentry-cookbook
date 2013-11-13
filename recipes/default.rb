@@ -79,6 +79,17 @@ template '/etc/sentry/sentry.conf.py' do
 end
 
 # run the sentry migration
+# (sentry --config=/etc/sentry.conf.py upgrade)
+bash 'sentry database migration' do
+  user 'sentry'
+  group 'sentry'
+  code <<-EOH
+. /var/www/sentry/bin/activate &&
+/var/www/sentry/bin/python /var/www/sentry/bin/sentry \
+--config=/etc/sentry/sentry.conf.py upgrade --noinput &&
+deactivate
+EOH
+end
 
 # configure the superusers
 
