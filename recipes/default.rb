@@ -92,6 +92,44 @@ EOH
 end
 
 # configure the superusers
+superuser_script = '/tmp/superuser_creator.py'
+template superuser_script do
+  owner 'sentry'
+  group 'sentry'
+  source 'superuser_creator.py.erb'
+
+  variables(
+    :virtualenv => '/var/www/sentry',
+    :config => '/etc/sentry/sentry.conf.py',
+    :superuser => node['sentry']['superuser']
+  )
+end
+
+bash 'create sentry superusers' do
+  user 'sentry'
+  group 'sentry'
+
+ code <<-EOH
+. /var/www/sentry/bin/activate &&
+/var/www/sentry/bin/python #{superuser_script} &&
+deactivate
+EOH
+end
+
+file superuser_script do
+  action :delete
+end
+
+bash 'fix unassigned projects' do
+  user 'sentry'
+  group 'sentry'
+
+  code <<-EOH
+. /var/www/sentry/bin/activate &&
+/var/www/sentry/bin/sentry --config=/etc/sentry/sentry.conf.py \
+repair --owner=#{node['sentry']['superuser']['username']}
+EOH
+end
 
 # configure the web server
 
