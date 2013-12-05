@@ -57,12 +57,11 @@ python_virtualenv '/var/www/sentry' do
 end
 
 # install sentry
-%w{sentry[postgres]}.each do |pip|
-  python_pip pip do
-    user 'sentry'
-    group 'sentry'
-    virtualenv '/var/www/sentry'
-  end
+python_pip 'sentry[postgres]' do
+  user 'sentry'
+  group 'sentry'
+  virtualenv '/var/www/sentry'
+  version '6.3.0'
 end
 
 # set the configuration file
