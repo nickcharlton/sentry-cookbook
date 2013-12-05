@@ -14,7 +14,32 @@ Vagrant.configure('2') do |config|
 
   # provision using Chef Solo
   config.vm.provision :chef_solo do |chef|
+    chef.json = {
+      'sentry' => {
+        'database' => {
+          'name' => 'sentry',
+          'user' => 'sentry',
+          'password' => 'sentry'
+        },
+        'email' => {
+          'host' => 'mail.example.com',
+          'password' => 'secret',
+          'user' => 'sentry',
+          'server_email' => 'sentry@example.com'
+        },
+        'secret_key' => 'sn!h+0%cr=0qx37*i1gu)n*v0r3n8jzt@c5o5j8+85num#vx-c',
+        'superuser' => {
+          'username' => 'test',
+          'password' => 'password',
+          'email' => 'test@example.com'
+        }
+      }
+    }
+
     chef.run_list = [
+        'recipe[python]',
+        'recipe[runit]',
+        'recipe[postgres::server]',
         'recipe[sentry]'
     ]
   end
