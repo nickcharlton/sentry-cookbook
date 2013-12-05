@@ -8,6 +8,7 @@
 #
 
 include_recipe 'postgres'
+include_recipe 'runit'
 
 # create a user to run the daemon as
 user 'sentry' do
@@ -131,7 +132,14 @@ repair --owner=#{node['sentry']['superuser']['username']}
 EOH
 end
 
-# configure the web server
+# configure the runit service
+runit_service 'sentry' do
+  options({
+    :root => '/var/www/sentry',
+    :user => 'sentry',
+    :config => '/etc/sentry/sentry.conf.py'
+  })
+end
 
 # apply the nginx settings
 

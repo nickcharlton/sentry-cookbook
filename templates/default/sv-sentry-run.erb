@@ -1,0 +1,8 @@
+#!/bin/sh
+
+USER=<%= @options[:user] %>
+ROOT=<%= @options[:root] %>
+CMD=$ROOT/bin/sentry
+
+cd $ROOT
+exec chpst -u$USER $CMD --config=<%= @options[:config] %> start http 2>&1
