@@ -22,6 +22,13 @@ user 'sentry' do
   action :create
 end
 
+# allow the root of /var/www to be writable
+directory '/var/www' do
+  owner   'www-data'
+  group   'www-data'
+  mode    '0755'
+end
+
 # create the application directories
 directory '/var/www/sentry' do
   owner 'sentry'
