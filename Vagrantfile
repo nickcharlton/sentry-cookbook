@@ -16,6 +16,9 @@ Vagrant.configure('2') do |config|
   config.vm.provision :chef_solo do |chef|
     chef.json = {
       'sentry' => {
+        'nginx' => {
+          'domain' => 'sentry.example.com'
+        },
         'database' => {
           'name' => 'sentry',
           'user' => 'sentry',
@@ -40,6 +43,7 @@ Vagrant.configure('2') do |config|
         'recipe[python]',
         'recipe[runit]',
         'recipe[postgres::server]',
+        'recipe[nginx]',
         'recipe[sentry]'
     ]
   end

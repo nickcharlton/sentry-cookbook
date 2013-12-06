@@ -9,4 +9,5 @@ version          '0.1.0'
 depends 'python'
 depends 'postgres'
 depends 'runit'
+depends 'nginx'
 
