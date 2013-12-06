@@ -9,6 +9,7 @@
 
 include_recipe 'postgres'
 include_recipe 'runit'
+include_recipe 'nginx'
 
 # create a user to run the daemon as
 user 'sentry' do
@@ -141,4 +142,10 @@ runit_service 'sentry' do
 end
 
 # apply the nginx settings
+template '/etc/nginx/sites-available/sentry' do
+  source 'nginx.erb'
+  mode '0644'
+end
+
+nginx_site 'sentry'
 
