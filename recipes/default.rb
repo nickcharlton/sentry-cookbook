@@ -72,6 +72,16 @@ python_pip 'sentry[postgres]' do
   version '6.3.0'
 end
 
+# prepare the further configuration options
+backend_package = node['sentry']['email']['backend_package']
+if backend_package
+  python_pip backend_package do
+    user 'sentry'
+    group 'sentry'
+    virtualenv '/var/www/sentry'
+  end
+end
+
 # set the configuration file
 template '/etc/sentry/sentry.conf.py' do
   source 'sentry.conf.py.erb'
