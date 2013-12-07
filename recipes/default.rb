@@ -81,6 +81,7 @@ template '/etc/sentry/sentry.conf.py' do
 
   variables(
     'database' => node['sentry']['database'],
+    'nginx' => node['sentry']['nginx'],
     'email' => node['sentry']['email'],
     'secret_key' => node['sentry']['secret_key']
   )
