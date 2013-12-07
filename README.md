@@ -4,6 +4,9 @@ A simple cookbook for installing the error logging and aggregation tool, [Sentry
 It uses [runit][] for process monitoring, [nginx][] for the web server and 
 [postgres][] for the data store.
 
+See [Further Configuration](#further-configuration) for using plugins, configuring
+workers and different email backends.
+
 ## Requirements
 
 * python
@@ -78,6 +81,20 @@ Python types.
 ## Recipes
 
 * `sentry['default']`: installs Sentry with the default configuration.
+
+## Further Configuration
+
+Sentry is quite configurable itself, but being a Django application that's exposed
+too. These are exposed as further attributes.
+
+### Django Settings
+
+* `sentry['email']['backend']`: the email backend to use (default: `django.core.mail.backends.smtp.EmailBackend`).
+* `sentry['email']['backend_package']`: the package which supports the backend (default: '').
+
+### Sentry Workers, Buffers & Plugins
+
+Soon.
 
 ## Author
 
