@@ -28,7 +28,9 @@ Vagrant.configure('2') do |config|
           'host' => 'mail.example.com',
           'password' => 'secret',
           'user' => 'sentry',
-          'server_email' => 'sentry@example.com'
+          'server_email' => 'sentry@example.com',
+          'backend' => 'django_smtp_ssl.SSLEmailBackend',
+          'backend_package' => 'django-smtp-ssl'
         },
         'secret_key' => 'sn!h+0%cr=0qx37*i1gu)n*v0r3n8jzt@c5o5j8+85num#vx-c',
         'superuser' => {

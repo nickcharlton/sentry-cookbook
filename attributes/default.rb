@@ -24,3 +24,7 @@ default['sentry']['email'] = {'host' => '',
 default['sentry']['secret_key'] = ''
 
 
+# futher configuration
+default['sentry']['email']['backend'] = 'django.core.mail.backends.smtp.EmailBackend'
+default['sentry']['email']['backend_package'] = nil
+
